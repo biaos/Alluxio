@@ -9,7 +9,7 @@ priority: 2
 * 内容列表
 {:toc}
 
-该文档介绍如何运行[Apache Hive](http://hive.apache.org/)，以能够在不同存储层将Hive的表格存储到Alluxio当中。
+该文档介绍如何使用Alluxio运行[Apache Hive](http://hive.apache.org/)，这样你就能很容易地在Alluxio的分层存储中存储Hive表。
 
 ## 前期准备
 
