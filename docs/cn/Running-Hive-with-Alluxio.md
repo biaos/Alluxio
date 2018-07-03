@@ -9,15 +9,13 @@ priority: 2
 * 内容列表
 {:toc}
 
-该文档介绍如何运行[Apache Hive](http://hive.apache.org/)，以能够在不同存储层将Hive的表格存储到Alluxio当中。
+该文档介绍如何使用Alluxio运行[Apache Hive](http://hive.apache.org/)，这样你就能很容易地在Alluxio的分层存储中存储Hive表。
 
 ## 前期准备
 
 开始之前你需要安装好[Java](Java-Setup.html)，同时使用[本地模式](Running-Alluxio-Locally.html)或[集群模式](Running-Alluxio-on-a-Cluster.html)构建好Alluxio。
 
 接着[下载Hive](http://hive.apache.org/downloads.html)。
-
-## 配置
 
 在Hadoop MapReduce上运行Hive之前，请按照[在Alluxio上运行MapReduce](Running-Hadoop-MapReduce-on-Alluxio.html)的指示来确保MapReduce可以运行在Alluxio上。
 
@@ -32,9 +30,9 @@ export HIVE_AUX_JARS_PATH={{site.ALLUXIO_CLIENT_JAR_PATH}}:${HIVE_AUX_JARS_PATH}
 ```
 
 
-## 在Alluxio上创建Hive表
+## 1 将Alluxio作为一个可选项来存储Hive表
 
-有不同的方法可以将Hive与Alluxio整合，以将Alluxio作为[内部表或外部表](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ManagedandExternalTables)，新创建的表或已存在的表的存储器。Alluxio也可以作为Hive的默认文件系统。在接下来的部分我们会介绍对于这些情况如何在Alluxio上使用Hive。本文档中Hive运行在Hadoop MapReduce上。
+有不同的方法可以将Hive与Alluxio整合。这一节讨论的是如何将Alluxio作为文件系统的一员（像HDFS）来存储Hive表。这些表可以是[内部的（托管的）或外部的](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-ManagedandExternalTables)，新创建的表或HDFS中已存在的表。[下一节](Running-Hive-with-Alluxio.html#use-alluxio-as-default-filesystem)讨论的是如何将Alluxio作为Hive的默认文件系统。在接下来的部分，文档中的Hive运行在Hadoop MapReduce上。
 *建议：接下来所有的Hive命令行例子同样适用于Hive Beeline。你可以在Beeline shell中尝试这些例子*
 
 ### 使用文件在Alluxio中创建新表
@@ -146,7 +144,7 @@ hive> alter table u_user set location "alluxio://master_hostname:port/ml-100k";
 hive> alter table TABLE_NAME set location "hdfs://namenode:port/table/path/in/HDFS";
 ```
 
-## Alluxio作为默认文件系统
+## 2 Alluxio作为默认文件系统
 
 Apache Hive也可以使用Alluxio，只需通过一个一般的文件系统接口来替换Hadoop文件系统使用Alluxio。这种方式下，Hive使用Alluxio作为其默认文件系统，它的元数据和中间结果都将存储在Alluxio上。
 
